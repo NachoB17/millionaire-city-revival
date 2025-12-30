@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Millionaire City Revival - PC Edition</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Écran de connexion -->
+    <div id="login-screen" class="screen active">
+        <div class="login-container">
+            <h1>🏙️ Millionaire City Revival</h1>
+            <p class="subtitle">PC Edition - Local Server</p>
+            
+            <div id="login-form">
+                <h2>Connexion</h2>
+                <input type="text" id="login-username" placeholder="Nom d'utilisateur" />
+                <input type="password" id="login-password" placeholder="Mot de passe" />
+                <button onclick="login()">Se connecter</button>
+                <p class="switch-form">Pas de compte ? <a href="#" onclick="showRegister()">Créer un compte</a></p>
+            </div>
+
+            <div id="register-form" style="display: none;">
+                <h2>Créer un compte</h2>
+                <input type="text" id="register-username" placeholder="Nom d'utilisateur" />
+                <input type="password" id="register-password" placeholder="Mot de passe" />
+                <input type="email" id="register-email" placeholder="Email (optionnel)" />
+                <button onclick="register()">Créer un compte</button>
+                <p class="switch-form">Déjà un compte ? <a href="#" onclick="showLogin()">Se connecter</a></p>
+            </div>
+
+            <div class="server-status">
+                <p>🖥️ Serveur: <span id="server-status">Vérification...</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Écran de jeu -->
+    <div id="game-screen" class="screen">
+        <!-- Header avec stats -->
+        <div class="game-header">
+            <div class="city-info">
+                <h1 id="city-name">Ma Ville</h1>
+                <p id="city-level">Niveau 1</p>
+            </div>
+            <div class="resources">
+                <div class="resource-item">
+                    <span class="icon">💰</span>
+                    <span id="city-cash">10,000</span>
+                </div>
+                <div class="resource-item">
+                    <span class="icon">⭐</span>
+                    <span id="city-xp">0 XP</span>
+                </div>
+                <div class="resource-item">
+                    <span class="icon">👥</span>
+                    <span id="city-population">0/100</span>
+                </div>
+            </div>
+            <div class="user-info">
+                <span id="username-display">Joueur</span>
+                <button onclick="logout()" class="btn-logout">Déconnexion</button>
+            </div>
+        </div>
+
+        <!-- Zone principale -->
+        <div class="game-container">
+            <!-- Grille de la ville -->
+            <div class="city-grid-container">
+                <div class="grid-controls">
+                    <button onclick="refreshCity()">🔄 Actualiser</button>
+                    <button onclick="collectAllIncome()">💰 Collecter tout</button>
+                </div>
+                <div id="city-grid" class="city-grid"></div>
+            </div>
+
+            <!-- Panel de bâtiments -->
+            <div class="building-panel">
+                <h2>🏗️ Construire</h2>
+                <div id="building-types" class="building-types"></div>
+                
+                <h3>Instructions</h3>
+                <div class="instructions">
+                    <p>1. Sélectionnez un bâtiment</p>
+                    <p>2. Cliquez sur une case vide de la grille</p>
+                    <p>3. Le bâtiment sera construit si vous avez assez d'argent</p>
+                </div>
+
+                <div id="selected-building-info" class="selected-info" style="display: none;">
+                    <h3>Bâtiment sélectionné</h3>
+                    <p id="selected-building-name"></p>
+                    <p id="selected-building-cost"></p>
+                    <p id="selected-building-income"></p>
+                    <button onclick="cancelSelection()">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages / Notifications -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Scripts -->
+    <script src="api.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
